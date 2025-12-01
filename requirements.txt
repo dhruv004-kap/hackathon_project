@@ -4,5 +4,5 @@ openai
 pymongo
 langgraph
 langchain
-langchain_openai
+langchain-openai
 python-dotenv
