@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+from typing import List
 
 # Request model for function generator from cURL
 class function_request(BaseModel):
@@ -19,7 +20,12 @@ class tool_response(BaseModel):
     result: str
     uu_id: str
 
+class params_desc(BaseModel):
+    param: str = Field(description="parameter name")
+    pram_type: str = Field(description="parameter data type")
+    param_desc: str = Field(description="parameter description (short description; with-in 5-10 words)")
+
 class return_funcion(BaseModel):
     python_function: str = Field(description="pyhton function named customFunction according to user requirements.")
     function_description: str = Field(description="descrrption of function in 25-50 words.")
-    params_description: str = Field(description="json string of key-value pair where key will be parameters of function and values should be description of those parameter.")
+    params_description: List[params_desc]

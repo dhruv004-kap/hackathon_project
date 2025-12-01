@@ -31,6 +31,10 @@ prompt_collection = db["prompts"]
 prompt_component_collection = db["prompt_components"]
 
 
+@app.get("/")
+async def welcome():
+    return {"message": "Hello!"}
+
 @app.get("/prompt_library/prompt-components")
 async def get_prompt_components():
     return list(prompt_component_collection.find({}, {"_id": 0}))
@@ -94,7 +98,7 @@ async def build_function(user_req: tool_request):
     uu_id = user_req.uu_id
 
     if not uu_id:
-        uu_id = str(uu_id)
+        uu_id = str(uuid4())
         config = {
             "configurable": {"thread_id": uu_id}
         }

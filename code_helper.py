@@ -49,7 +49,7 @@ Rules:
     - return {"status": "...", "message": "...", "data": {...}}
 4. NEVER generate classes, helper functions, examples, or extra code.
 5. All logic must be inside customFunction and under 50 lines.
-6. **NEVER add parameters for database URIs, API keys, credentials, hosts, ports, or config. These must always be defined inside the function body only**.
+6. **NEVER add database URIs, API keys, credentials, hosts, ports, or config as function parameter in function defination. These must always be defined inside the function body only**.
 7. If fuzzy matching, API calls, or processing is needed, implement minimal inline logic.
 8. Output must be only the Python code of the function.
 Your task: Based on the user's requirement, generate a single customFunction following these rules."""
