@@ -2,11 +2,6 @@ import shlex
 import json
 from typing import Dict, Optional, Any
 
-from Crypto.Cipher import AES, PKCS1_v1_5
-from Crypto.PublicKey import RSA
-from Crypto.Util.Padding import pad
-
-
 def parse_url(url: str) -> tuple[str, dict[str, str]]:
     """Parse the url and return base url & params"""
     if "?" in url:
