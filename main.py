@@ -19,6 +19,8 @@ from models import *
 
 from action_template import *
 
+from access_token import customFunction
+
 load_dotenv()
 
 app = FastAPI(title="Prompt Library & Action builder")
@@ -112,3 +114,8 @@ async def build_function(user_req: tool_request):
         "result": result["messages"][-1].content,
         "uu_id": uu_id
     }
+
+
+@app.get("/JPBL/get-access-token")
+async def get_token():
+    return customFunction("9824671530")

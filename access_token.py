@@ -139,7 +139,6 @@ def customFunction(phone):
             session = result.get("session", {})
 
             pre_call_res = {
-                "phone_number": phone,
                 "access_token": session["accessToken"].get("tokenValue") if session.get("accessToken") else "",
                 "trace_id": str(uu_id),
                 "app_id": session.get("appIdentifierToken")
@@ -150,7 +149,6 @@ def customFunction(phone):
             print(f"Response text: {res.text}")
 
             return {
-                "phone_number": phone,
                 "access_token": "",
                 "trace_id": "",
                 "app_id": ""
@@ -161,6 +159,6 @@ def customFunction(phone):
         return {"message": "Error occurred during API call for auth token"}
 
 
-
-result = customFunction("9346798520")
-print(f"\nPre_call response: {result}")
+if __name__ == "__main__":
+    result = customFunction("9346798520")
+    print(f"\nPre_call response: {result}")
