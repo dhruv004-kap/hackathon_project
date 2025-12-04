@@ -71,7 +71,7 @@ async def get_service_types():
 
 
 @app.get("/prompt_library/prmopts")
-async def get_prompts(service_type: str, language: Optional[str]):
+async def get_prompts(service_type: str, language: str = None):
     """ This end point for prompt library """
 
     # get prompts from DB for selected industry
