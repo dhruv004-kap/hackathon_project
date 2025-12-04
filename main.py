@@ -19,8 +19,6 @@ from models import *
 
 from action_template import *
 
-from access_token import customFunction
-
 load_dotenv()
 
 app = FastAPI(title="Prompt Library & Action builder")
@@ -39,10 +37,14 @@ async def welcome():
 
 @app.get("/prompt_library/prompt-components")
 async def get_prompt_components():
+    """ This is end poin to get available prompts components """
     return list(prompt_component_collection.find({}, {"_id": 0}))
 
 @app.get("/prompt_library/get-service-types")
 async def get_service_types():
+    """ This is end poin to get available industry for prompts """
+
+    # get available industries from DB
     service_types_record = prompt_collection.find({}, {"service_type": 1, "_id": 0})
 
     service_types = []
@@ -55,6 +57,9 @@ async def get_service_types():
 
 @app.get("/prompt_library/get-prompt-languages")
 async def get_service_types():
+    """ This is end poin to get available languages for prompts """
+
+    # get available prompts from DB
     languages_records = prompt_collection.find({}, {"language": 1, "_id": 0})
 
     languages = []
@@ -67,6 +72,9 @@ async def get_service_types():
 
 @app.get("/prompt_library/prmopts")
 async def get_prompts(service_type: str, language: Optional[str]):
+    """ This end point for prompt library """
+
+    # get prompts from DB for selected industry
     db_query = {"service_type": {"$regex": re.compile(service_type, re.IGNORECASE)}}
 
     if language:
@@ -79,11 +87,14 @@ async def get_prompts(service_type: str, language: Optional[str]):
 
 @app.get("/action-template")
 async def get_action_template(action_name: str):
+    """ This end point provides action templates """
     return pre_call_template if action_name == "pre_call" else post_call_template
 
 
-@app.post("/tools/create_function")
+@app.post("/tools/curl_function")
 async def get_functions(user_req: function_request):
+    """ This end point serve to create python function from curl """
+
     curl_str = user_req.curl_command
     dynamic_map = json.loads(user_req.dynamic_map)
 
@@ -96,6 +107,8 @@ async def get_functions(user_req: function_request):
 
 @app.post("/tools/build_tool")
 async def build_function(user_req: tool_request):
+    """ This end point serve AI Assist """
+
     user_prompt = user_req.user_prompt
     uu_id = user_req.uu_id
 
@@ -114,8 +127,3 @@ async def build_function(user_req: tool_request):
         "result": result["messages"][-1].content,
         "uu_id": uu_id
     }
-
-
-@app.get("/JPBL/get-access-token")
-async def get_token():
-    return customFunction("9824671530")
