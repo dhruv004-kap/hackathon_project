@@ -183,7 +183,7 @@ def customFunction(ticket_id,conversation_id):
         })
 
         print("\nPOSTING RECORDING URL")
-        response = requests.post(url=recording_upload_url, headers=recording_headers, data=callback_payload, timeout=10)
+        response = requests.post(url=recording_upload_url, headers=recording_headers, data=callback_payload)
 
         if response.status_code == 200 :
             print("\nUploading voice recording url: Success")
@@ -225,7 +225,24 @@ def customFunction(ticket_id,conversation_id):
         },
         "tag_id": None
     }
+    print(f"\nDashboard payload: {dashboard_payload}")
 
+    try:
+        dashboard_response = requests.post(url=dashboard_url, headers=dashboard_headers, json=dashboard_payload)
+        res_status_code = dashboard_response.status_code
+
+        if res_status_code == 200:
+            dashboard_res = dashboard_response.text
+            print(f"\nStatus code: {res_status_code}, \nDashboard Response: {dashboard_res}")
+
+        else:
+            dashboard_res = dashboard_response.text
+            print(f"\nStatus code: {res_status_code}, \nDashboard Response: {dashboard_res}")
+
+    except Exception as e:
+            print(f"\nSome error occured during updating dashboard webhook; Error: {e}; \nTraceback: {traceback.format_exc()}")
+
+    
     # === Update ticket === #
     ticket_url = "update-ticket-url"
 
@@ -254,7 +271,7 @@ def customFunction(ticket_id,conversation_id):
 
             return {
                 "ticket_id": ticket_id,
-                "ticket_status": res_status == 200
+                "ticket_updated": res_status == 200
             }
         
         else:
