@@ -21,7 +21,7 @@ actions = APIRouter(
 
 
 @actions.get("/available-actions")
-async def get_available_actions():
+async def get_available_actions(auth: str = Depends(verify_basic_auth)):
     return ["pre_call", "post_call", "get_current_date_time_tool", "convert_digit_to_words_tool"]
 
 
@@ -71,7 +71,7 @@ async def get_functions(user_req: function_request, auth: str = Depends(verify_b
         return HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!")
     
 
-@actions.post("/build_tool")
+@actions.post("/build-tool")
 async def build_function(user_req: tool_request, auth: str = Depends(verify_basic_auth)):
     """ This end point serve AI Assist """
 

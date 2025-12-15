@@ -56,7 +56,7 @@ async def get_service_types(auth: str = Depends(verify_basic_auth)):
 
 
 @library.get("/get-prompt-languages")
-async def get_service_types(auth: str = Depends(verify_basic_auth)):
+async def get_prompt_languages(auth: str = Depends(verify_basic_auth)):
     """ This is end poin to get available languages for prompts """
 
     try:
@@ -75,7 +75,7 @@ async def get_service_types(auth: str = Depends(verify_basic_auth)):
         return HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!")
     
 
-@library.get("/prmopts")
+@library.get("/prompts")
 async def get_prompts(service_type: str, language: str = None, auth: str = Depends(verify_basic_auth)):
     """ This end point for prompt library """
 
