@@ -132,8 +132,8 @@ async def insert_prompt(user_req: new_prompt, auth: str = Depends(verify_basic_a
         accuracy = prompt_evaluation.get("accuracy")
         insert_query["prompt_accuracy"] = accuracy
 
-        if float(accuracy) < 70:
-            return JSONResponse(status_code=200, content="Prompt should score more than 70% accuracy to get inserted!")
+        # if float(accuracy) < 70:
+        #     return JSONResponse(status_code=200, content="Prompt should score more than 70% accuracy to get inserted!")
 
         prompt_library.insert_one(insert_query)
 
